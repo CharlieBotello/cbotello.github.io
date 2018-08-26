@@ -85,10 +85,10 @@ CREATE or replace view company_view AS(
 select 
   tr.trade_id as trade_id,
   tr.stock_ex_id as stock_ex_id,
-  com.name as comname,
+  com.name as name,
   com.stock_id as stock_id,
   tr.shares as shares,
-  tr.price_total as total
+  tr.price_total as price_total
 from company com 
   LEFT JOIN trade tr 
     ON com.stock_id = tr.stock_id
@@ -101,7 +101,6 @@ GROUP BY   tr.trade_id,
   tr.shares,
   tr.price_total)
 ;
-
 
 
 --================================================================================================================--
@@ -205,9 +204,9 @@ ORDER BY dh.last_name, dh.first_name, com.name
 --6. Write a query which displays all trades where more than 50000 shares were traded on the secondary markets.  Please include the trade id, stock symbol, 
 --name of the company being traded, stock exchange symbol, number of shares traded, price total (including broker fees) and currency symbol. subquery
 --****************************************************************************************************************************************--
-
+ 
 SELECT 
-  unique(com.name),
+  com.name,
   sl.stock_symbol,
   tr.shares,
   tr.trade_id,
@@ -226,7 +225,7 @@ FROM trade tr
               ON sp.stock_id = tr.stock_id
               AND sp.stock_ex_id = tr.stock_ex_id
 WHERE tr.shares > 50000
-AND tr.stock_ex_id is not null  
+AND tr.stock_ex_id is NOT null
  GROUP BY   com.name,
   sl.stock_symbol,
   tr.shares,
@@ -264,7 +263,7 @@ FROM company com
            JOIN currency cur
             ON se.currency_id = cur.currency_id
 WHERE trunc(tr.transaction_time,'dd') = trunc(sp.time_start,'dd')
-ORDER BY se.name, se.symbol
+ORDER BY se.name, se.symbol 
 ;
 
 
@@ -275,15 +274,17 @@ ORDER BY se.name, se.symbol
 --===================================================================================================--
 
 SELECT
-  
-  tr.stock_ex_id as stock_ex_id,
+  com.name,
+  tr.trade_id,
   tr.stock_id as stock_id,
+  tr.shares,
   MAX(tr.stock_ex_id) as top
 FROM trade tr
   JOIN company com 
-    ON tr.stock_id = com.stock_id 
-WHERE tr.stock_ex_id IS NOT NULL
-GROUP BY tr.stock_ex_id, tr.stock_id
+    ON tr.stock_id = com.stock_id and rownum =1
+WHERE tr.stock_ex_id IS NOT NULL 
+GROUP BY com.name, tr.trade_id, tr.shares, tr.stock_id
+order by top
 ;
 
 --==views listed at the beggining====================================================================-
@@ -294,14 +295,14 @@ SELECT
 FROM 
 (SELECT 
  tr.trade_id,
- MAX(tr.shares) as winner,
+ MAX(tr.shares) as winner_I_HOPE,
  com.name
  FROM company com
   INNER JOIN trade tr
     ON com.stock_id = tr.stock_id
- WHERE stock_ex_id is not null
+ WHERE stock_ex_id is not null 
  GROUP BY tr.trade_id,com.name
-ORDER BY winner  DESC)
+ORDER BY winner_I_HOPE  DESC)
 WHERE ROWNUM = 1;
     
     
@@ -664,13 +665,6 @@ where rownum = 1;
 
 
 
-
-
-
-
-
-
-
 --****************************************************************************************************************************************--
 
 -- 20.     Display the name of the company and trade volume for the company whose stock has the largest 
@@ -696,7 +690,7 @@ FROM company_view created
   LEFT JOIN stock_price sp 
     ON sp.stock_id = created.stock_id
     AND created.stock_ex_id = sp.stock_ex_id
-WHERE sp.stock_id IS NOT NULL
+WHERE sp.stock_id IS NOT NULL and rownum = 1
 AND sp.stock_ex_id IS NOT NULL
 GROUP BY 
   created.trade_id,
@@ -704,7 +698,7 @@ GROUP BY
   created.stock_id,
   created.shares,
   created.price_total
-ORDER BY winner desc
+ORDER BY winner 
 ;
 
 
@@ -719,7 +713,7 @@ SELECT
  se.name,
  se.symbol AS "Stock Exchange Symbol",
  sl.stock_symbol,
- COUNT(tr.shares) "Trades"
+ count(tr.shares) "Trades"
  FROM trade tr
    JOIN stock_listing sl
     ON tr.stock_ex_id = sl.stock_ex_id
@@ -733,6 +727,7 @@ SELECT
             ON se.currency_id = cur.currency_id
 
 WHERE trunc(tr.transaction_time,'dd') = trunc(sp.time_start,'dd')
+
 GROUP BY se.name, se.symbol, sl.stock_symbol
 ;
 
@@ -758,10 +753,4 @@ FROM stock_exchange se
 WHERE se.symbol = 'NYSE' 
 GROUP BY tr.trade_id, com.name, tr.buyer_id
 ORDER by forbes desc
-
 ;
-
-
-
-
-
