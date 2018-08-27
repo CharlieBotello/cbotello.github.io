@@ -572,7 +572,7 @@ BEGIN
 
   
 INSERT INTO stock_listing(stock_id, stock_ex_id, stock_symbol) VALUES (p_stock_id, p_stock_ex_id, p_stock_symbol);
-INSERT INTO stock_price (stock_id, stock_ex_id, time_start, price) VALUES (l_stock_id, p_stock_ex_id,sysdate, l_starting_price);
+INSERT INTO stock_price (stock_id, stock_ex_id, time_start, price) VALUES (p_stock_id, p_stock_ex_id,sysdate, l_starting_price);
 
 
 
