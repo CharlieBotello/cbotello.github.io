@@ -748,7 +748,7 @@ ORDER by forbes desc
          
          Mock Unix Command Line Mock 
 
-Q1. Copy the etc/hosts file into your unixmock directory
+Q1. Copy the etc/hosts file into your ugrep ^[^a-z][^A-Z] tradingSystem/brokers.datnixmock directory
 cp /etc/hosts rec
   tr.trade_id, 
   com.name,
@@ -774,7 +774,7 @@ Q5. Find all files in your home directory or subdirections which you have modifi
 find ~/ -type f -mtime -1 > rec
 
 Q6. Display all the lines in grepFile that do not start with a letter
-grep ^[^a-z][^A-Z] tradingSystem/brokers.dat
+
 
 Q7. Display a list of all files in your home directory including hidden files 
 ls -a ~ 
