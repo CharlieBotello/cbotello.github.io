@@ -739,17 +739,7 @@ GROUP BY se.name, se.symbol, sl.stock_symbol
 --****************************************************************************************************************************************--
 
 
-SELECT distinct
-  tr.trade_id, 
-  com.name,
-  tr.buyer_id,
-  MAX(tr.shares) AS Forbes
-  
-FROM stock_exchange se 
-  LEFT JOIN trade tr 
-   inner JOIN company com
-        ON com.stock_id = tr.trade_id
-    ON tr.stock_ex_id = se.stock_ex_id
+SELECT distinct_id = se.stock_ex_id
 WHERE se.symbol = 'NYSE' 
 GROUP BY tr.trade_id, com.name, tr.buyer_id
 ORDER by forbes desc
@@ -759,10 +749,20 @@ ORDER by forbes desc
          Mock Unix Command Line Mock 
 
 Q1. Copy the etc/hosts file into your unixmock directory
-cp /etc/hosts unix/
+cp /etc/hosts rec
+  tr.trade_id, 
+  com.name,
+  tr.buyer_id,
+  MAX(tr.shares) AS Forbes
+  
+FROM stock_exchange se 
+  LEFT JOIN trade tr 
+   inner JOIN company com
+        ON com.stock_id = tr.trade_id
+    ON tr.stock_ex
 
 Q2. Remove read for group and other from the hosts file in your unixmock directory
-chmod 600 unix/hosts 
+chmod 600 unix/hosts rec 
 
 Q3. Create a variable called dir and set it to /home
 dir=/home
@@ -771,10 +771,10 @@ Q4. List the contents of the directory stored in the variable dir
 Ls $dir
 
 Q5. Find all files in your home directory or subdirections which you have modified within the last day and store the results in a filed called recentfiles
-find ~/ -type f -mtime -1 > recenfiles
+find ~/ -type f -mtime -1 > rec
 
 Q6. Display all the lines in grepFile that do not start with a letter
-grep ^[^a-z][^A-Z] filename
+grep ^[^a-z][^A-Z] tradingSystem/brokers.dat
 
 Q7. Display a list of all files in your home directory including hidden files 
 ls -a ~ 
@@ -786,10 +786,10 @@ Q9. Display the 1st 5 lines of batchprog
 head -5 filename
 
 Q10.  Count the lines in batchprog that contain the word date
-grep date filename  | wc -l
+grep date tradingSystem/brokers.dat  | wc -l
 
 Q11. Display just the 1st 3 characters of each line in grepfile
-cut -c -3 practice
+cut -c -3 tradingSystem/brokers.dat
 
 Q12. List all the people currently logged into the system and sort the output alphabetically by username.
  who | sort
@@ -819,7 +819,7 @@ Q17. Find all the files in /etc (or subdirectories of /etc) that start with the 
 find /etc -type f -name "p*" > ecp 2>/dev/null/etc
 
 Q18. Display the contents of the /etc/hosts file but replace each : with * 
-tr ":" "*" < /etc/hosts
+tr ":" "*" < tradingSystem/brokers.dat
 
 Q19. List the size, in characters, of each file in your unixmock directory and store a file filesizelist
 .  ls | wc -m * > newfile
@@ -830,22 +830,22 @@ Q20. Delete the grepFile and and batchprog files from your unixmock directory
 review 
 
 - find sorting unique in a file
-sort filename | unique-c |sort -n 
+sort filename | uniq -c |sort -n 
 
 
 - sort alphabetically w/
-Sort filename 
+sort tradingSystem/brokers.dat
 
 
 - date w/ option
-date --="02/20/2016"
+date --d="02/20/2016"
 
 - cut: display curtain part of a file
-cat practice | cut -c1-4 | head -3 | tail -1
+cat tradingSystem/brokers.dat | cut -c1-4 | head -3 | tail -1
 
 - ps: show your own
 
-Ps shows my processing id 
+ps shows my processing id 
 ps -e shows everybody
 
 - sleep front/back and know how to terminate jobs
