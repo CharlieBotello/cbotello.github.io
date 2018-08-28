@@ -754,3 +754,146 @@ WHERE se.symbol = 'NYSE'
 GROUP BY tr.trade_id, com.name, tr.buyer_id
 ORDER by forbes desc
 ;
+         
+         
+         Mock Unix Command Line Mock 
+
+Q1. Copy the etc/hosts file into your unixmock directory
+cp /etc/hosts unix/
+
+Q2. Remove read for group and other from the hosts file in your unixmock directory
+chmod 600 unix/hosts 
+
+Q3. Create a variable called dir and set it to /home
+dir=/home
+
+Q4. List the contents of the directory stored in the variable dir
+Ls $dir
+
+Q5. Find all files in your home directory or subdirections which you have modified within the last day and store the results in a filed called recentfiles
+find ~/ -type f -mtime -1 > recenfiles
+
+Q6. Display all the lines in grepFile that do not start with a letter
+grep ^[^a-z][^A-Z] filename
+
+Q7. Display a list of all files in your home directory including hidden files 
+ls -a ~ 
+
+Q8. Display a list of only the hidden files in your home directory. Do not list the contents of subdirectories
+find ~/ -name '.*'
+
+Q9. Display the 1st 5 lines of batchprog
+head -5 filename
+
+Q10.  Count the lines in batchprog that contain the word date
+grep date filename  | wc -l
+
+Q11. Display just the 1st 3 characters of each line in grepfile
+cut -c -3 practice
+
+Q12. List all the people currently logged into the system and sort the output alphabetically by username.
+ who | sort
+finger | sort 
+sers | sort
+
+
+
+Q13.  List all the people who are currently logged into the system and sort the output alphabetically by username.
+
+users | sort | cut -d " " -f1 |uniq -d
+
+Q14. Identify the Process ID of you bash shell
+ps / ps -e (everyone) 
+
+Q15. Count the number of directories and subdirectories in your home directory
+
+find ~ -type d | wc -l
+
+Q16. Identify the directory which hold the touch command.  Do not search the whole filesystem
+
+type touch
+ 
+Q17. Find all the files in /etc (or subdirectories of /etc) that start with the letter p. Store the results in a file called etcpfiles and discard all error messages into /dev/null
+/etc
+
+find /etc -type f -name "p*" > ecp 2>/dev/null/etc
+
+Q18. Display the contents of the /etc/hosts file but replace each : with * 
+tr ":" "*" < /etc/hosts
+
+Q19. List the size, in characters, of each file in your unixmock directory and store a file filesizelist
+.  ls | wc -m * > newfile
+
+wc -m * > newfile
+Q20. Delete the grepFile and and batchprog files from your unixmock directory
+
+review 
+
+- find sorting unique in a file
+sort filename | unique-c |sort -n 
+
+
+- sort alphabetically w/
+Sort filename 
+
+
+- date w/ option
+date --="02/20/2016"
+
+- cut: display curtain part of a file
+cat practice | cut -c1-4 | head -3 | tail -1
+
+- ps: show your own
+
+Ps shows my processing id 
+ps -e shows everybody
+
+- sleep front/back and know how to terminate jobs
+Sleep 5 sleeps 
+
+Jobs 
+
+fg %1
+bg%1 (default)
+Sleep 1000 &
+Kill number
+
+- show directory?
+ 
+- find all files that are empty
+find  -type f -empty
+
+- see users are logged on: finger (user)
+
+
+- find file begin w/ t: find t*
+find . -type f -name "t*"
+find . -type d -name "t*"
+
+- redirection/ redirecting your error
+> redirect to a new file 
+>> appent to file 
+0 - sdtinput
+ 1- sdout
+2 - stderr
+co
+
+
+Command 2>&1
+- grep options, lowercase/uppercase
+	fgrep is litteral
+- file rights: octo/numberic 
+	u+rxw or 7 chmod 777 filename or chmod +rxwc
+- display environmental variable
+	Env (environment)
+- tr    (trim a piece of information)
+cat practice | tr "[a-z]" "[A-Z]"
+cat practice | tr [:space:] '\t'
+tr '[:lower:]' '[:upper:]' < tradingSystem/brokers.dat > case
+- list all environmental variables: env 
+
+word -c -m
+
+NOTE: 
+- Create a recycle bin 
+
